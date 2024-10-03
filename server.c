@@ -34,7 +34,7 @@ static int	ft_print_respond(int pid)
 	ft_putstr("\nMessage received from PID: ");
 	ft_putnbr(pid);
 	ft_putstr("\n");
-	kill(pid, SIGUSR1);
+	kill(pid, SIGUSR2);
 	return (0);
 }
 
@@ -67,6 +67,8 @@ static void	ft_receive_sig(int signum, siginfo_t *info, void *context)
 		c = 0;
 		i = 0;
 	}
+	if (pid)
+		kill(pid, SIGUSR1);
 }
 
 /**

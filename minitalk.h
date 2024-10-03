@@ -13,6 +13,8 @@
 #ifndef MINITALK_H
 # define MINITALK_H
 
+# define _POSIX_C_SOURCE 199309L
+# define _XOPEN_SOURCE 500
 # include <unistd.h>
 # include <signal.h>
 # include <stdlib.h>

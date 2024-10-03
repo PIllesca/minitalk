@@ -24,8 +24,11 @@ static void	ft_receive_sig(int signum, siginfo_t *info, void *context)
 	(void)signum;
 	(void)info;
 	(void)context;
-	ft_putstr("Confirmation signal received\n");
-	exit(EXIT_SUCCESS);
+	if (signum == SIGUSR2)
+	{
+		ft_putstr("Message sent successfully\n");
+		exit(EXIT_SUCCESS);
+	}
 }
 
 /**
@@ -45,7 +48,7 @@ static void	ft_send_sig(int pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(100);
+		usleep(300);
 		i++;
 	}
 }
@@ -73,6 +76,7 @@ int	main(int argc, char *argv[])
 	s_sa.sa_flags = SA_SIGINFO;
 	s_sa.sa_sigaction = ft_receive_sig;
 	sigaction(SIGUSR1, &s_sa, NULL);
+	sigaction(SIGUSR2, &s_sa, NULL);
 	while (argv[2][i])
 	{
 		ft_send_sig(pid, (unsigned char)argv[2][i]);
